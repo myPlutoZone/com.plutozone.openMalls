@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	id="com.plutozone.openMalls">
+	
+	<!-- [2015-12-23][pluto@plutozone.com][INSERT: Filter(Encoding) ConfigLocation]] -->
+	<filter>
+		<filter-name>characterEncoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> 
+	
+	<!-- [2020-01-17][pluto@plutozone.com][INSERT: Filter(ReadableRequestWrapperFilter) ConfigLocation] -->
+	<filter>
+		<filter-name>ReadableRequestWrapperFilter</filter-name>
+		<filter-class>com.plutozone.common.filter.ReadableRequestWrapperFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ReadableRequestWrapperFilter</filter-name>
+		<url-pattern>*.api</url-pattern>
+	</filter-mapping>
+	
+	<!-- [2015-12-23][pluto@plutozone.com][INSERT: Log4j ConfigLocation] -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/conf/${common.mode}/log4j.xml</param-value>
+	</context-param>
+	
+	<!-- [DEFAULT] Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- [DEFAULT: UPDATE(param-value)] The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/conf/${common.mode}/spring-context-resource.xml</param-value>
+	</context-param>
+	
+	<!-- [DEFAULT: UPDATE(servlet-name & param-value)] Processes application requests for Spring] -->
+	<servlet>
+		<servlet-name>controller</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/conf/spring-context-application.xml</param-value>
+		</init-param>
+		<!-- [2018-10-18][pluto@plutozone.com][INSERT: Spring Exception Handler] -->
+		<init-param>
+			<param-name>throwExceptionIfNoHandlerFound</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>controller</servlet-name>
+		<url-pattern>*.web</url-pattern>
+	</servlet-mapping>
+	<!-- [2015-12-29][pluto@plutozone.com][INSERT: *.json for AJAX] -->
+	<servlet-mapping>
+		<servlet-name>controller</servlet-name>
+		<url-pattern>*.json</url-pattern>
+	</servlet-mapping>
+	<!-- [2018-01-29][pluto@plutozone.com][INSERT: *.api for API] -->
+	<servlet-mapping>
+		<servlet-name>controller</servlet-name>
+		<url-pattern>*.api</url-pattern>
+	</servlet-mapping>
+	<!-- [2020-05-21][pluto@plutozone.com][INSERT: *.svr for API] -->
+	<servlet-mapping>
+		<servlet-name>controller</servlet-name>
+		<url-pattern>*.svr</url-pattern>
+	</servlet-mapping>
+	
+	<!-- [2015-12-29][pluto@plutozone.com][INSERT: Result Servlet] -->
+	<servlet>
+		<servlet-name>result</servlet-name>
+		<servlet-class>com.plutozone.util.servlet.Result</servlet-class>
+	</servlet>  
+	<servlet-mapping>
+		<servlet-name>result</servlet-name>
+		<url-pattern>/servlet/result.web</url-pattern>
+	</servlet-mapping>
+	
+	<!-- [2015-12-29][pluto@plutozone.com][INSERT: Config Servlet] -->
+	<servlet>
+		<servlet-name>config</servlet-name>
+		<servlet-class>com.plutozone.util.servlet.Config</servlet-class>
+		<init-param>
+			<param-name>pageNavigator</param-name>
+			<param-value>/WEB-INF/conf/pageNavigator.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet> 
+	
+	<!-- [2018-10-18][pluto@plutozone.com][REPORT: System Error Page for Spring(*.web, *.api, *.json) is SystemExceptionCtrl] -->
+	<!-- [2015-12-29][pluto@plutozone.com][INSERT: System Error Page for Web Application Server] -->
+	<!-- bad request(400), unauthorized(401), access deny(403), file not found(404), method not allowed(405), request timeout(408), format not supported(415), internal server error(500), service unavailable(503), exception(java.lang.exception), exception(javax.servlet.servletexception) -->
+	<error-page>
+		<error-code>400</error-code>
+		<location>/error.web?code=400</location> 
+	</error-page>
+	<error-page>
+		<error-code>401</error-code>
+		<location>/error.web?code=401</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error.web?code=403</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error.web?code=404</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/error.web?code=405</location>
+	</error-page>
+	<error-page>
+		<error-code>408</error-code>
+		<location>/error.web?code=408</location>
+	</error-page>
+	<error-page>
+		<error-code>415</error-code>
+		<location>/error.web?code=415</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error.web?code=500</location>
+	</error-page>
+	<error-page>
+		<error-code>503</error-code>
+		<location>/error.web?code=503</location>
+	</error-page>
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/error.web?code=exception</location>
+	</error-page>
+	<error-page>
+		<exception-type>javax.servlet.ServletException</exception-type>
+		<location>/error.web?code=servletException</location>
+	</error-page>
+	
+	<!-- [2015-12-29][pluto@plutozone.com][INSERT: Session Timeout] -->
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+	
+	<!-- [2015-12-29][pluto@plutozone.com][INSERT: Welcome Page] -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.web</welcome-file>
+		<welcome-file>login.web</welcome-file>
+	</welcome-file-list>
+	
+	<!-- [2019-04-04][pluto@plutozone.com][INSERT: Session Clustering] -->
+	<distributable/>
+	
+</web-app>
