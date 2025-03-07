@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee; http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	id="com.plutozone.openMalls">
 	
-	<!-- [2015-12-23][pluto@plutozone.com][INSERT: Filter(Encoding) ConfigLocation]] -->
+	<!-- [2015-12-23][pluto#plutozone.com][INSERT: Filter(Encoding) ConfigLocation]] -->
 	<filter>
 		<filter-name>characterEncoding</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -17,9 +17,9 @@
 	<filter-mapping>
 		<filter-name>characterEncoding</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> 
+	</filter-mapping>
 	
-	<!-- [2020-01-17][pluto@plutozone.com][INSERT: Filter(ReadableRequestWrapperFilter) ConfigLocation] -->
+	<!-- [2020-01-17][pluto#plutozone.com][INSERT: Filter(ReadableRequestWrapperFilter) ConfigLocation] -->
 	<filter>
 		<filter-name>ReadableRequestWrapperFilter</filter-name>
 		<filter-class>com.plutozone.common.filter.ReadableRequestWrapperFilter</filter-class>
@@ -29,7 +29,7 @@
 		<url-pattern>*.api</url-pattern>
 	</filter-mapping>
 	
-	<!-- [2015-12-23][pluto@plutozone.com][INSERT: Log4j ConfigLocation] -->
+	<!-- [2015-12-23][pluto#plutozone.com][INSERT: Log4j ConfigLocation] -->
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
@@ -56,7 +56,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/conf/spring-context-application.xml</param-value>
 		</init-param>
-		<!-- [2018-10-18][pluto@plutozone.com][INSERT: Spring Exception Handler] -->
+		<!-- [2018-10-18][pluto#plutozone.com][INSERT: Spring Exception Handler] -->
 		<init-param>
 			<param-name>throwExceptionIfNoHandlerFound</param-name>
 			<param-value>true</param-value>
@@ -67,23 +67,23 @@
 		<servlet-name>controller</servlet-name>
 		<url-pattern>*.web</url-pattern>
 	</servlet-mapping>
-	<!-- [2015-12-29][pluto@plutozone.com][INSERT: *.json for AJAX] -->
+	<!-- [2015-12-29][pluto#plutozone.com][INSERT: *.json for AJAX] -->
 	<servlet-mapping>
 		<servlet-name>controller</servlet-name>
 		<url-pattern>*.json</url-pattern>
 	</servlet-mapping>
-	<!-- [2018-01-29][pluto@plutozone.com][INSERT: *.api for API] -->
+	<!-- [2018-01-29][pluto#plutozone.com][INSERT: *.api for API] -->
 	<servlet-mapping>
 		<servlet-name>controller</servlet-name>
 		<url-pattern>*.api</url-pattern>
 	</servlet-mapping>
-	<!-- [2020-05-21][pluto@plutozone.com][INSERT: *.svr for API] -->
+	<!-- [2020-05-21][pluto#plutozone.com][INSERT: *.srv for API] -->
 	<servlet-mapping>
 		<servlet-name>controller</servlet-name>
-		<url-pattern>*.svr</url-pattern>
+		<url-pattern>*.srv</url-pattern>
 	</servlet-mapping>
 	
-	<!-- [2015-12-29][pluto@plutozone.com][INSERT: Result Servlet] -->
+	<!-- [2015-12-29][pluto#plutozone.com][INSERT: Result Servlet] -->
 	<servlet>
 		<servlet-name>result</servlet-name>
 		<servlet-class>com.plutozone.util.servlet.Result</servlet-class>
@@ -93,7 +93,7 @@
 		<url-pattern>/servlet/result.web</url-pattern>
 	</servlet-mapping>
 	
-	<!-- [2015-12-29][pluto@plutozone.com][INSERT: Config Servlet] -->
+	<!-- [2015-12-29][pluto#plutozone.com][INSERT: Config Servlet] -->
 	<servlet>
 		<servlet-name>config</servlet-name>
 		<servlet-class>com.plutozone.util.servlet.Config</servlet-class>
@@ -104,8 +104,8 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet> 
 	
-	<!-- [2018-10-18][pluto@plutozone.com][REPORT: System Error Page for Spring(*.web, *.api, *.json) is SystemExceptionCtrl] -->
-	<!-- [2015-12-29][pluto@plutozone.com][INSERT: System Error Page for Web Application Server] -->
+	<!-- [2018-10-18][pluto#plutozone.com][REPORT: System Error Page for Spring(*.web, *.api, *.json) is SystemExceptionCtrl] -->
+	<!-- [2015-12-29][pluto#plutozone.com][INSERT: System Error Page for Web Application Server] -->
 	<!-- bad request(400), unauthorized(401), access deny(403), file not found(404), method not allowed(405), request timeout(408), format not supported(415), internal server error(500), service unavailable(503), exception(java.lang.exception), exception(javax.servlet.servletexception) -->
 	<error-page>
 		<error-code>400</error-code>
@@ -152,12 +152,12 @@
 		<location>/error.web?code=servletException</location>
 	</error-page>
 	
-	<!-- [2015-12-29][pluto@plutozone.com][INSERT: Session Timeout] -->
+	<!-- [2015-12-29][pluto#plutozone.com][INSERT: Session Timeout] -->
 	<session-config>
 		<session-timeout>10</session-timeout>
 	</session-config>
 	
-	<!-- [2015-12-29][pluto@plutozone.com][INSERT: Welcome Page] -->
+	<!-- [2015-12-29][pluto#plutozone.com][INSERT: Welcome Page] -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
@@ -165,7 +165,7 @@
 		<welcome-file>login.web</welcome-file>
 	</welcome-file-list>
 	
-	<!-- [2019-04-04][pluto@plutozone.com][INSERT: Session Clustering] -->
+	<!-- [2019-04-04][pluto#plutozone.com][INSERT: Session Clustering] -->
 	<distributable/>
 	
 </web-app>
