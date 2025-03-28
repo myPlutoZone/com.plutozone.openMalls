@@ -16,6 +16,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 
 # Reference
+- /resource/database/oracle/* for Oracle XE 11g
 - /resource/tomcat/bin/envset.sh for Tomcat for 9.x and JRE 1.8.x
 - [ERD at https://www.erdcloud.com](https://www.erdcloud.com/d/5TXndTkHDuiupYZ6P)
 
