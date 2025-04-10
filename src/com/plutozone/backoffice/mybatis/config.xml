@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.plutozone.backoffice.center.dto.BoardDto"				alias="boardDto" />
+		<typeAlias type="com.plutozone.backoffice.common.dto.PagingDto"				alias="pagingDto" />
+		<typeAlias type="com.plutozone.backoffice.example.ExampleDto"				alias="exampleDto" />
+		<typeAlias type="com.plutozone.backoffice.example.ExamplesDto"				alias="examplesDto" />
+		<typeAlias type="com.plutozone.backoffice.login.dto.LoginDto"				alias="loginDto" />
+		<typeAlias type="com.plutozone.backoffice.statistics.dto.MemberRegionDto"	alias="memberRegionDto" />
+		<typeAlias type="com.plutozone.backoffice.users.dto.ManagerDto"				alias="managerDto" />
+		<typeAlias type="com.plutozone.backoffice.users.dto.MemberDto"				alias="memberDto" />
+		<typeAlias type="com.plutozone.backoffice.users.dto.SellerDto"				alias="sellerDto" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/plutozone/backoffice/mybatis/center/Board.xml" />
+		<mapper resource="com/plutozone/backoffice/mybatis/example/Example.xml" />
+		<mapper resource="com/plutozone/backoffice/mybatis/login/Login.xml" />
+		<mapper resource="com/plutozone/backoffice/mybatis/statistics/Member.xml" />
+		<mapper resource="com/plutozone/backoffice/mybatis/users/Manager.xml" />
+		<mapper resource="com/plutozone/backoffice/mybatis/users/Member.xml" />
+		<mapper resource="com/plutozone/backoffice/mybatis/users/Seller.xml" />
+	</mappers>
+</configuration>

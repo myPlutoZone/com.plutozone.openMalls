@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.front.mybatis.pay.Pay">
+	
+	<update id="updateByOrderNum" parameterType="payDto">
+		UPDATE
+			TB_PAY
+		SET
+			FLG_SUCCESS	= #{flg_success}
+			, NUM_DEAL	= #{num_deal}
+		WHERE
+			NUM_ORDER = #{num_order}
+	</update>
+	
+	<select id="select" parameterType="payDto" resultType="payDto">
+		SELECT
+			SEQ_BUY_MST
+		FROM
+			TB_PAY
+		WHERE
+			 NUM_DEAL = #{num_deal}
+	</select>
+	
+	<update id="updateByDealNum" parameterType="payDto">
+		UPDATE
+			TB_PAY
+		SET
+			FLG_SUCCESS	= #{flg_success}
+		WHERE
+			 NUM_DEAL = #{num_deal}
+	</update>
+	
+	<insert id="insert" parameterType="payDto">
+		INSERT INTO TB_PAY
+			(SEQ_PAY, SEQ_MBR, SEQ_BUY_MST, CD_PG, NUM_ORDER, NUM_DEAL, CD_PAY_METHOD, FLG_SUCCESS, DT_REG, REGISTER)
+		VALUES
+			(#{seq_pay}, #{seq_mbr}, #{seq_buy_mst}, 1, #{num_order}, #{num_deal}, NULL, NULL, SYSDATE, #{seq_mbr})
+	</insert>
+	
+	<select id="sequence" resultType="java.lang.Integer">
+		SELECT SQ_SEQ_PAY.NEXTVAL FROM DUAL
+	</select>
+	
+</mapper>

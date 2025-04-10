@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+	
+	<context:annotation-config />
+	<tx:annotation-driven proxy-target-class="true" />
+	
+	<bean id="staticProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/conf/local/static.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="dynamicSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/conf/local/dynamic</value>
+			</list>
+		</property>
+		<property name="cacheSeconds">
+			<value>3</value>
+		</property>
+	</bean>
+	<bean id="dynamicProperties" class="org.springframework.context.support.MessageSourceAccessor">
+		<constructor-arg>
+			<ref bean="dynamicSource" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/conf/message</value>
+			</list>
+		</property>
+		<property name="cacheSeconds">
+			<value>3</value>
+		</property>
+	</bean>
+	<bean id="messageProperties" class="org.springframework.context.support.MessageSourceAccessor">
+		<constructor-arg>
+			<ref bean="messageSource" />
+		</constructor-arg>
+	</bean>
+	
+	<context:component-scan base-package="com.plutozone">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/conf/local/database.properties" />
+	</bean>
+	
+	<bean name="dsSeller" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${seller.driver}" />
+		<property name="url" value="${seller.url}" />
+		<property name="username" value="${seller.user}" />
+		<property name="password" value="${seller.password}" />
+	</bean>	
+	<bean name="ssfSeller" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dsSeller" />
+		<property name="configLocation" value="classpath:com/plutozone/seller/mybatis/config.xml" />
+	</bean>	
+	<bean name="sqlSessionSeller" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="ssfSeller" />
+	</bean>	
+	<bean id="txSeller" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dsSeller" />
+		<qualifier value="txSeller" />
+	</bean>
+	
+	<bean name="dsFront" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${front.driver}" />
+		<property name="url" value="${front.url}" />
+		<property name="username" value="${front.user}" />
+		<property name="password" value="${front.password}" />
+	</bean>	
+	<bean name="ssfFront" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dsFront" />
+		<property name="configLocation" value="classpath:com/plutozone/front/mybatis/config.xml" />
+	</bean>	
+	<bean name="sqlSessionFront" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="ssfFront" />
+	</bean>	
+	<bean id="txFront" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dsFront" />
+		<qualifier value="txFront" />
+	</bean>
+	
+	<bean name="dsBackoffice" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${backoffice.driver}" />
+		<property name="url" value="${backoffice.url}" />
+		<property name="username" value="${backoffice.user}" />
+		<property name="password" value="${backoffice.password}" />
+	</bean>	
+	<bean name="ssfBackoffice" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dsBackoffice" />
+		<property name="configLocation" value="classpath:com/plutozone/backoffice/mybatis/config.xml" />
+	</bean>	
+	<bean name="sqlSessionBackoffice" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="ssfBackoffice" />
+	</bean>	
+	<bean id="txBackoffice" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dsBackoffice" />
+		<qualifier value="txBackoffice" />
+	</bean>
+	
+	<!--
+	<bean name="dsCommon" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${common.driver}" />
+		<property name="url" value="${common.url}" />
+		<property name="username" value="${common.user}" />
+		<property name="password" value="${common.password}" />
+	</bean>	
+	<bean name="ssfCommon" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dsCommon" />
+		<property name="configLocation" value="classpath:com/plutozone/common/mybatis/config.xml" />
+	</bean>	
+	<bean name="sqlSessionCommon" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="ssfCommon" />
+	</bean>	
+	<bean id="txCommon" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dsCommon" />
+		<qualifier value="txCommon" />
+	</bean>
+	-->
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.naver.com" />
+		<property name="port" value="465" />
+		<property name="username" value="아이디@naver.com" />
+		<property name="password" value="암호" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.ssl.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="mailSender2nd" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="아이디@gmail.com" />
+		<property name="password" value="암호" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="mailSender3rd" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.cafe24.com" />
+		<property name="port" value="587" />
+		<property name="username" value="noreply@회사도메인" />
+		<property name="password" value="암호" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>	
+	
+</beans>

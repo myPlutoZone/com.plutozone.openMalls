@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.backoffice.mybatis.example.Example">
+
+	<select id="myBatisForeach" parameterType="examplesDto" resultType="exampleDto">
+		SELECT
+			NUM, NAME, ETC
+		FROM
+			(
+			SELECT 1 num , '노태우' name, 5 etc FROM DUAL
+			UNION ALL
+			SELECT 2 num , '김영삼' name, 2 etc  FROM DUAL
+			UNION ALL
+			SELECT 3 num , '김대중' name, 3 etc   FROM DUAL
+			UNION ALL
+			SELECT 4 num , '노무현' name, 8 etc   FROM DUAL
+			)
+		WHERE
+			NUM IN
+			<foreach collection="nums" item="arr" open="(" close=")" separator=",">
+				#{arr}
+			</foreach>
+			AND ETC IN
+			<foreach collection="nums" item="arr" open="(" close=")" separator=",">
+				#{arr}
+			</foreach> 
+	</select>
+</mapper>

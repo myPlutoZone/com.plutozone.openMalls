@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.front.mybatis.buy.BuyDetail">
+	
+	<insert id="insert" parameterType="buyDetailDto">
+		INSERT INTO TB_BUY_DTL
+			(SEQ_BUY_DTL, SEQ_BUY_MST, SEQ_SLE, SEQ_PRD, COUNT, PRICE, DT_REG, REGISTER)
+		VALUES
+			(#{seq_buy_dtl}, #{seq_buy_mst}, #{seq_sle}, #{seq_prd}, #{count}, #{price}, SYSDATE, #{register})
+	</insert>
+	
+	<select id="select" parameterType="buyMasterDto" resultType="buyDetailDto">
+		SELECT
+			tb_sle.SLE_NM
+			, tb_sle.DESCES
+			, tb_sle.IMG
+			, tb_buy_dtl.SEQ_BUY_MST
+			, tb_buy_dtl.PRICE
+			, tb_buy_dtl.COUNT
+			, TO_CHAR(tb_buy_dtl.DT_REG, 'YYYY-MM-DD HH24:MI:SS') dt_reg
+		FROM
+			TB_BUY_DTL			tb_buy_dtl
+			INNER JOIN TB_SLE	tb_sle ON tb_buy_dtl.SEQ_SLE = tb_sle.SEQ_SLE
+		WHERE
+			tb_buy_dtl.SEQ_BUY_MST	= #{seq_buy_mst}
+			AND tb_buy_dtl.REGISTER	= #{register}
+	</select>
+	
+	<select id="sequence" resultType="java.lang.Integer">
+		SELECT SQ_SEQ_BUY_DTL.NEXTVAL FROM DUAL
+	</select>
+	
+</mapper>

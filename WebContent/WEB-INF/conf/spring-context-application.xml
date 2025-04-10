@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd">
+	
+	<annotation-driven />
+	
+	<aop:aspectj-autoproxy />
+	<beans:bean name="commonAop" class="com.plutozone.common.aop.CommonAop" />
+	
+	<task:annotation-driven />
+	<beans:bean id="systemScheduler" class="com.plutozone.common.scheduler.SystemSchd" />
+		
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- MAX Size: 10MB + 1Byte -->
+		<!-- <beans:property name="maxUploadSize" value="10485761" /> -->
+	</beans:bean>
+	
+	<beans:bean id="fileDownloadView" class="com.plutozone.common.view.FileDownloadView" />
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="1"/>
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/view/" />
+		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2" />
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<beans:property name="objectMapper">
+			<beans:bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"/>
+		</beans:property>
+	</beans:bean>
+	
+	<context:component-scan base-package="com.plutozone" use-default-filters="false">
+		<context:include-filter type="regex" expression="com.plutozone..*Ctrl.*" />
+		<context:include-filter type="regex" expression="com.plutozone..*Api.*" />
+		<context:include-filter type="regex" expression="com.plutozone..*Web.*" />
+	</context:component-scan>
+	
+	<mvc:interceptors>
+		<interceptor>
+			<mvc:mapping path="/console/**" />
+			<exclude-mapping path="/console/example/**" />
+			<exclude-mapping path="/console/index.web" />
+			<exclude-mapping path="/console/manager/registerForm.web" />
+			<exclude-mapping path="/console/manager/registerProc.web" />
+			<exclude-mapping path="/console/login/loginForm.web" />
+			<exclude-mapping path="/console/login/loginProc.web" />
+			<exclude-mapping path="/console/login/logout.web" />
+			<exclude-mapping path="/console/**/*.json" />
+			<exclude-mapping path="/console/**/*.api" />
+			<beans:bean class="com.plutozone.backoffice.common.interceptor.BackofficeItrc" >
+			</beans:bean>
+		</interceptor>
+		<interceptor>
+			<mvc:mapping path="/seller/**" />
+			<exclude-mapping path="/seller/index.web" />
+			<exclude-mapping path="/seller/sellers/registerForm.web" />
+			<exclude-mapping path="/seller/sellers/registerProc.web" />
+			<exclude-mapping path="/seller/login/loginForm.web" />
+			<exclude-mapping path="/seller/login/loginProc.web" />
+			<exclude-mapping path="/seller/login/logout.web" />
+			<exclude-mapping path="/seller/**/*.json" />
+			<exclude-mapping path="/seller/**/*.api" />
+			<beans:bean class="com.plutozone.seller.common.interceptor.SellerItrc" >
+			</beans:bean>
+		</interceptor>
+		<interceptor>
+			<mvc:mapping path="/front/**" />
+			<exclude-mapping path="/front/index.web" />
+			<exclude-mapping path="/front/intro/**" />
+			<exclude-mapping path="/front/sale/**" />
+			<exclude-mapping path="/front/buy/writeForm.web" />
+			<exclude-mapping path="/front/center/index.web" />
+			<exclude-mapping path="/front/center/**/list.web" />
+			<exclude-mapping path="/front/center/**/view.web" />
+			<exclude-mapping path="/front/center/board/download.web" />
+			<exclude-mapping path="/front/member/registerForm.web" />
+			<exclude-mapping path="/front/member/registerProc.web" />
+			<exclude-mapping path="/front/member/confirmEmail.web" />
+			<exclude-mapping path="/front/login/loginForm.web" />
+			<exclude-mapping path="/front/login/loginProc.web" />
+			<exclude-mapping path="/front/login/logout.web" />
+			<exclude-mapping path="/front/**/*.json" />
+			<exclude-mapping path="/front/**/*.api" />
+			<beans:bean class="com.plutozone.front.common.interceptor.FrontItrc" >
+			</beans:bean>
+		</interceptor>
+	</mvc:interceptors>
+	
+</beans:beans>

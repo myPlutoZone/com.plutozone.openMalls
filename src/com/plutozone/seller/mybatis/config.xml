@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.plutozone.seller.common.dto.PagingDto"		alias="pagingDto" />
+		<typeAlias type="com.plutozone.seller.sale.dto.SaleDto"			alias="saleDto" />
+		<typeAlias type="com.plutozone.seller.sale.dto.SaleImageDto"	alias="saleImageDto" />
+		<typeAlias type="com.plutozone.seller.login.dto.LoginDto"		alias="loginDto" />
+		<typeAlias type="com.plutozone.seller.product.dto.ProductDto"	alias="productDto" />
+		<typeAlias type="com.plutozone.seller.sellers.dto.SellerDto"	alias="sellerDto" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/plutozone/seller/mybatis/sale/Sale.xml" />
+		<mapper resource="com/plutozone/seller/mybatis/login/Login.xml" />
+		<mapper resource="com/plutozone/seller/mybatis/product/Product.xml" />
+		<mapper resource="com/plutozone/seller/mybatis/sellers/Seller.xml" />
+	</mappers>
+</configuration>

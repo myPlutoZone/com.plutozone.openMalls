@@ -1,0 +1,41 @@
+/**
+ * YOU ARE STRICTLY PROHIBITED TO COPY, DISCLOSE, DISTRIBUTE, MODIFY OR USE THIS PROGRAM
+ * IN PART OR AS A WHOLE WITHOUT THE PRIOR WRITTEN CONSENT OF PLUTOZONE.COM.
+ * PLUTOZONE.COM OWNS THE INTELLECTUAL PROPERTY RIGHTS IN AND TO THIS PROGRAM.
+ * COPYRIGHT (C) 2005 PLUTOZONE.COM ALL RIGHTS RESERVED.
+ *
+ * 하기 프로그램에 대한 저작권을 포함한 지적재산권은 plutozone.com에 있으며,
+ * plutozone.com이 명시적으로 허용하지 않는 사용, 복사, 변경 및 제 3자에 의한 공개, 배포는 엄격히 금지되며
+ * plutozone.com의 지적재산권 침해에 해당된다.
+ * Copyright (C) 2005 plutozone.com All Rights Reserved.
+ *
+ *
+ * Program		: com.plutozone.openMalls
+ * Description	:
+ * Environment	:
+ * File			: /css/layoutSubmain.css
+ * Notes		:
+ * History		: [NO][Programmer][Description]
+ *				: [20240313112200][pluto#plutozone.com][CREATE: Initial Release]
+ */
+@charset "UTF-8";
+
+.container			{margin:10px; display:flex;flex-direction:column}
+.container > header	{border:1px solid #FFFFFF;padding:10px;text-align:center}
+.container > nav	{font-size:14px;border:1px solid #FFFFFF;padding:10px}
+.container > footer {border:1px solid #FFFFFF;padding:10px;text-align:center}
+
+.content			{display:flex; border:1px solid #FFFFFF}
+.content > nav		{line-height:1.5;text-align:left ;margin:5px;border:1px solid #FFFFFF;flex-basis:300px}
+.content > article	{text-align:center;margin:5px;border:1px solid #FFFFFF;flex-basis:100% }
+.content > aside	{width:0px;text-align:right;margin:5px;border:1px solid #FFFFFF;}
+
+@media(max-width: 500px) {
+	.content {flex-direction:column}
+	.content nav {flex-basis:100%}
+	.content aside {display: none}
+	
+	table:not(.notBlock),thead:not(.notBlock),tbody:not(.notBlock),th:not(.notBlock),td:not(.notBlock),tr:not(.notBlock){display:block;}
+	tr:not(.notBlock){border-bottom:1px solid #616161;}
+	td:not(.notBlock){padding:3px 3px 3px 0px !important;}
+}

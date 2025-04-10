@@ -1,0 +1,5 @@
++ bbs(게시판)
+	+ notice(공지사항)
+	+ question(질의응답)
++ sll(판매자)
+	+ licenseBiz(사업자등록증)

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 페이지 네비게이터 설정파일 -->
+<pageNavigator>	
+	<!-- [네비게이터 스타일 1: 프론트(이미지)] -->
+	<style id="front_image">
+		<!-- 네비게이터 컨테이너 정의 -->
+		<containers>
+			<container name="containerOpen">
+				<![CDATA[<span class="pageNavi_front_image">]]>
+			</container>
+			<container name="containerClose">
+				<![CDATA[</span>]]>
+			</container>
+		</containers>
+		<!-- 버튼 정의 -->
+		<buttons>
+			<!-- 가장 처음 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonFirstLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pageFirst.gif" border="0" alt="처음으로" align="absmiddle" /></a>&nbsp;]]>
+			</button>
+			<!-- 가장 처음 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonFirst">
+				<![CDATA[<img src="/image/btn/btn_pageFirst.gif" border="0" alt="처음으로" align="absmiddle" />&nbsp;]]>
+			</button>
+			<!-- 앞 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonPrevLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pagePrev.gif" border="0" alt="이전페이지" align="absmiddle" /></a>&nbsp;]]>
+			</button>
+			<!-- 앞 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonPrev">
+				<![CDATA[<img src="/image/btn/btn_pagePrev.gif" border="0" alt="이전페이지" align="absmiddle" />&nbsp;]]>
+			</button>
+			<!-- 다음 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonNextLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pageNext.gif" border="0" alt="다음페이지" align="absmiddle" /></a>&nbsp;]]>
+			</button>
+			<!-- 다음 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonNext">
+				<![CDATA[<img src="/image/btn/btn_pageNext.gif" border="0" alt="다음페이지" align="absmiddle" />&nbsp;]]>
+			</button>
+			<!-- 가장 마지막 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonLastLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pageLast.gif" border="0" alt="마지막으로" align="absmiddle" /></a>&nbsp;]]>
+			</button>
+			<!-- 가장 마지막 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonLast">
+				<![CDATA[<img src="/image/btn/btn_pageLast.gif" border="0" alt="마지막으로" align="absmiddle" />&nbsp;]]>
+			</button>
+		</buttons>
+		<!-- 페이지 정의 -->
+		<pages>
+			<!-- 각각 페이지 사에에 삽입될 구분자 -->
+			<page name="separator">
+				<![CDATA[]]>
+			</page>
+			<!-- 현재 선택된 페이지 -->
+			<page name="pageCurrent" replacePage="#page#" >
+				<![CDATA[<strong>#page#</strong>&nbsp;]]>
+			</page>
+			<!-- 링크가 걸리는 다른 페이지 -->
+			<page name="pageLink" replacePage="#page#" replaceLink="#link#">
+				<![CDATA[<a href="#link#">#page#</a>&nbsp;]]>
+			</page>
+		</pages>
+	</style>
+	
+	<!-- [네비게이터 스타일 2: 관리자(텍스트)] -->
+	<style id="admin_text">
+		<!-- 네비게이터 컨테이너 정의 -->
+		<containers>
+			<container name="containerOpen">
+				<![CDATA[<span class="pageNavi_admin_text">]]>
+			</container>
+			<container name="containerClose">
+				<![CDATA[</span>]]>
+			</container>
+		</containers>
+		<!-- 버튼 정의 -->
+		<buttons>
+			<!-- 가장 처음 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonFirstLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#">[처음으로]</a>&nbsp;]]>
+			</button>
+			<!-- 가장 처음 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonFirst">
+				<![CDATA[[처음으로]&nbsp;]]>
+			</button>
+			<!-- 앞 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonPrevLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#">[이전 목록]</a>&nbsp;]]>
+			</button>
+			<!-- 앞 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonPrev">
+				<![CDATA[[이전 목록]&nbsp;]]>
+			</button>
+			<!-- 다음 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonNextLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#">[다음 목록]</a>&nbsp;]]>
+			</button>
+			<!-- 다음 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonNext">
+				<![CDATA[[다음 목록]&nbsp;]]>
+			</button>
+			<!-- 가장 마지막 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonLastLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#">[마지막으로]</a>&nbsp;]]>
+			</button>
+			<!-- 가장 마지막 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonLast">
+				<![CDATA[[마지막으로]&nbsp;]]>
+			</button>
+		</buttons>
+		<!-- 페이지 정의 -->
+		<pages>
+			<!-- 각각 페이지 사에에 삽입될 구분자 -->
+			<page name="separator">
+				<![CDATA[<span>|</span>&nbsp;]]>
+			</page>
+			<!-- 현재 선택된 페이지 -->
+			<page name="pageCurrent" replacePage="#page#" >
+				<![CDATA[<strong>#page#</strong>&nbsp;]]>
+			</page>
+			<!-- 링크가 걸리는 다른 페이지 -->
+			<page name="pageLink" replacePage="#page#" replaceLink="#link#">
+				<![CDATA[<a href="#link#">#page#</a>&nbsp;]]>
+			</page>
+		</pages>
+	</style>
+	
+	<!-- [네비게이터 스타일 3: 관리자(이미지)] -->
+	<style id="admin_image">
+		<!-- 네비게이터 컨테이너 정의 -->
+		<containers>
+			<container name="containerOpen">
+				<![CDATA[<span class="pageNavi_admin_image">]]>
+			</container>
+			<container name="containerClose">
+				<![CDATA[</span>]]>
+			</container>
+		</containers>
+		<!-- 버튼 정의 -->
+		<buttons>
+			<!-- 가장 처음 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonFirstLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pageFirst.gif" border="0" alt="처음으로" align="absmiddle" /></a>&nbsp;]]>
+			</button>
+			<!-- 가장 처음 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonFirst">
+				<![CDATA[<img src="/image/btn/btn_pageFirst.gif" border="0" alt="처음으로" align="absmiddle" />&nbsp;]]>
+			</button>
+			<!-- 앞 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonPrevLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pagePrev.gif" border="0" alt="이전페이지" align="absmiddle" /></a>&nbsp;]]>
+			</button>
+			<!-- 앞 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonPrev">
+				<![CDATA[<img src="/image/btn/btn_pagePrev.gif" border="0" alt="이전페이지" align="absmiddle" />&nbsp;]]>
+			</button>
+			<!-- 다음 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonNextLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pageNext.gif" border="0" alt="다음페이지" align="absmiddle" /></a>&nbsp;]]>
+			</button>
+			<!-- 다음 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonNext">
+				<![CDATA[<img src="/image/btn/btn_pageNext.gif" border="0" alt="다음페이지" align="absmiddle" />&nbsp;]]>
+			</button>
+			<!-- 가장 마지막 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonLastLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pageLast.gif" border="0" alt="마지막으로" align="absmiddle" /></a>&nbsp;]]>
+			</button>
+			<!-- 가장 마지막 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonLast">
+				<![CDATA[<img src="/image/btn/btn_pageLast.gif" border="0" alt="마지막으로" align="absmiddle" />&nbsp;]]>
+			</button>
+		</buttons>
+		<!-- 페이지 정의 -->
+		<pages>
+			<!-- 각각 페이지 사에에 삽입될 구분자 -->
+			<page name="separator">
+				<![CDATA[]]>
+			</page>
+			<!-- 현재 선택된 페이지 -->
+			<page name="pageCurrent" replacePage="#page#" >
+				<![CDATA[<strong>#page#</strong>&nbsp;]]>
+			</page>
+			<!-- 링크가 걸리는 다른 페이지 -->
+			<page name="pageLink" replacePage="#page#" replaceLink="#link#">
+				<![CDATA[<a href="#link#">#page#</a>&nbsp;]]>
+			</page>
+		</pages>
+	</style>
+	
+	<!-- [네비게이터 스타일 4: 기타] -->
+	<style id="etc">
+		<!-- 네비게이터 컨테이너 정의 -->
+		<containers>
+			<container name="containerOpen">
+				<![CDATA[]]>
+			</container>
+			<container name="containerClose">
+				<![CDATA[]]>
+			</container>
+		</containers>
+		<!-- 버튼 정의 -->
+		<buttons>
+			<!-- 가장 처음 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonFirstLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pageFirst.gif" border="0" alt="처음으로" align="absmiddle" /></a>]]>
+			</button>
+			<!-- 가장 처음 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonFirst">
+				<![CDATA[<img src="/image/btn/btn_pageFirst.gif" border="0" alt="처음으로" align="absmiddle" />]]>
+			</button>
+			<!-- 앞 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonPrevLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pagePrev.gif" border="0" alt="이전페이지" align="absmiddle" /></a>]]>
+			</button>
+			<!-- 앞 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonPrev">
+				<![CDATA[<img src="/image/btn/btn_pagePrev.gif" border="0" alt="이전페이지" align="absmiddle" />]]>
+			</button>
+			<!-- 다음 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonNextLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pageNext.gif" border="0" alt="다음페이지" align="absmiddle" /></a>]]>
+			</button>
+			<!-- 다음 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonNext">
+				<![CDATA[<img src="/image/btn/btn_pageNext.gif" border="0" alt="다음페이지" align="absmiddle" />]]>
+			</button>
+			<!-- 가장 마지막 페이지로 가는 버튼(링크가 걸린 경우) -->
+			<button name="buttonLastLink" replaceLink="#link#">
+				<![CDATA[<a href="#link#"><img src="/image/btn/btn_pageLast.gif" border="0" alt="마지막으로" align="absmiddle" /></a>]]>
+			</button>
+			<!-- 가장 마지막 페이지로 가는 버튼(링크 없이 디스플레이만 할 경우) -->
+			<button name="buttonLast">
+				<![CDATA[<img src="/image/btn/btn_pageLast.gif" border="0" alt="마지막으로" align="absmiddle" />]]>
+			</button>
+		</buttons>
+		<!-- 페이지 정의 -->
+		<pages>
+			<!-- 각각 페이지 사에에 삽입될 구분자 -->
+			<page name="separator">
+				<![CDATA[]]>
+			</page>
+			<!-- 현재 선택된 페이지 -->
+			<page name="pageCurrent" replacePage="#page#" >
+				<![CDATA[<strong>#page#</strong>]]>
+			</page>
+			<!-- 링크가 걸리는 다른 페이지 -->
+			<page name="pageLink" replacePage="#page#" replaceLink="#link#">
+				<![CDATA[<a href="#link#">#page#</a>]]>
+			</page>
+		</pages>
+	</style>	
+</pageNavigator>

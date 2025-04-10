@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.seller.mybatis.sale.Sale">
+	
+	<insert id="insertImage" parameterType="saleImageDto">
+		INSERT INTO TB_SLE_IMG
+			(SEQ_SLE_IMG, SEQ_SLE, IMG, DT_REG, REGISTER)
+		VALUES
+			(SQ_SEQ_SLE_IMG.NEXTVAL, #{seq_sle}, #{img}, SYSDATE, #{register})
+	</insert>
+	
+	<select id="listPrd" parameterType="saleDto" resultType="saleDto">
+		SELECT
+			SEQ_PRD
+			, PRD_NM
+		FROM
+			TB_PRD
+		WHERE
+			CD_STATE_PRD	= 1
+			AND REGISTER	= #{register}
+		ORDER BY	
+			DT_REG DESC
+	</select>
+	
+	<update id="update" parameterType="saleDto">
+		UPDATE
+			TB_SLE
+		SET
+			SLE_NM			= #{sle_nm}
+			, CD_WHERE_CTG	= #{cd_where_ctg}
+			, DESCES 		= #{desces}
+			, PRICE_SALE	= #{price_sale}
+			, CD_STATE_SALE	= #{cd_state_sale}
+			, DT_SALE_START	= #{dt_sale_start}
+			, DT_SALE_END	= #{dt_sale_end}
+			, DT_REG		= SYSDATE
+			, UPDATER		= #{updater}
+		WHERE
+			REGISTER		= #{register}
+			AND SEQ_SLE		= #{seq_sle}
+	</update>
+	
+	<insert id="insert" parameterType="saleDto">
+		INSERT INTO TB_SLE
+			(SEQ_SLE, SEQ_PRD, SLE_NM, CD_WHERE_CTG, DESCES, PRICE_SALE, CD_STATE_SALE, IMG, DT_SALE_START, DT_SALE_END, DT_REG, REGISTER)
+		VALUES
+			(#{seq_sle}, #{seq_prd}, #{sle_nm}, #{cd_where_ctg}, #{desces}, #{price_sale}, #{cd_state_sale}, #{img}, #{dt_sale_start}, TO_DATE(#{dt_sale_end}, 'YYYY-MM-DD HH24:MI:SS'), SYSDATE, #{register})
+	</insert>
+	
+	<select id="select" parameterType="saleDto" resultType="saleDto">
+		SELECT
+			SEQ_SLE
+			, SLE_NM
+			, DESCES
+			, CD_WHERE_CTG
+			, PRICE_SALE
+			, CD_STATE_SALE
+			, IMG
+			, TO_CHAR(DT_SALE_START, 'YYYY-MM-DD')	dt_sale_start
+			, TO_CHAR(DT_SALE_END, 'YYYY-MM-DD')	dt_sale_end
+		FROM
+			TB_SLE
+		WHERE
+			REGISTER		= #{register}
+			AND SEQ_SLE		= #{seq_sle}
+	</select>
+	
+	<select id="count" parameterType="pagingDto" resultType="java.lang.Integer">
+		SELECT
+			COUNT(ROWNUM)
+		FROM
+			TB_SLE sle INNER JOIN TB_PRD prd ON sle.SEQ_PRD = prd.SEQ_PRD
+		WHERE
+			<include refid="where" />
+	</select>
+	
+	<select id="list" parameterType="pagingDto" resultType="saleDto">
+		SELECT
+			*
+		FROM
+			(
+			SELECT
+				/*+ first_rows(10) */ ROW_NUMBER() OVER (ORDER BY sle.DT_REG DESC) rnum
+				, sle.SEQ_SLE
+				, sle.SLE_NM
+				, sle.CD_WHERE
+				, sle.desces
+				, sle.CD_STATE_SALE
+				, sle.PRICE_SALE
+				, TO_CHAR(sle.DT_REG, 'YYYY-MM-DD') dt_reg
+			FROM
+				TB_SLE sle INNER JOIN TB_PRD prd ON sle.SEQ_PRD = prd.SEQ_PRD
+			WHERE
+				<include refid="where" />
+			)
+		<![CDATA[
+		WHERE
+			rnum >= (${currentPage} - 1) * ${linePerPage} + 1 AND rnum <= ${currentPage} * ${linePerPage}
+		]]> 
+		ORDER BY
+			rnum
+	</select>
+	
+	<sql id="where">
+			sle.REGISTER = #{register}
+		<if test="searchWord != null and searchWord != ''">
+			<if test="searchKey == 'sle_nm'">
+				AND UPPER(sle.SLE_NM) LIKE UPPER('%' || #{searchWord} || '%')
+			</if>
+			<if test="searchKey == 'sle_desces'">
+				AND UPPER(sle.DESCES) LIKE UPPER('%' || #{searchWord} || '%')
+			</if>
+			<if test="searchKey == 'sle_desces_and_nm'">
+				AND (
+					UPPER(sle.DESCES) LIKE UPPER('%' || #{searchWord} || '%')
+					OR
+					UPPER(sle.SLE_NM) LIKE UPPER('%' || #{searchWord} || '%')
+				)
+			</if>
+		</if>
+		<choose>
+			<when test="cd_state_sale != null and cd_state_sale != ''">
+				AND sle.CD_STATE_SALE = #{cd_state_sale}
+			</when>
+			<otherwise>
+				AND sle.CD_STATE_SALE IN (1, 2, 9)
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="sequence" resultType="java.lang.Integer">
+		SELECT SQ_SEQ_SLE.NEXTVAL FROM DUAL
+	</select>
+	
+</mapper>

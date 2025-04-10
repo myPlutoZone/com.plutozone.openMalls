@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.front.mybatis.basket.Basket">
+	
+	<insert id="insert" parameterType="basketDto">
+		INSERT INTO TB_BSK
+			(SEQ_BSK, SEQ_MBR, SEQ_SLE, SEQ_PRD, SEQ_SLL, SLE_NM, PRICE, COUNT, IMG, FLG_DELETE, DT_REG)
+		VALUES
+			(SQ_SEQ_BSK.NEXTVAL, #{seq_mbr}, #{seq_sle}, #{seq_prd}, #{seq_sll}, #{sle_nm}, #{price}, #{count}, #{img}, 'N', SYSDATE)
+	</insert>
+	
+	<select id="listing" parameterType="java.lang.Integer" resultType="basketDto">
+		SELECT
+			SEQ_BSK
+			, SEQ_SLE
+			, SEQ_PRD
+			, SEQ_SLL
+			, SLE_NM
+			, PRICE
+			, COUNT
+			, IMG
+		FROM
+			TB_BSK
+		WHERE
+			SEQ_MBR			= #{seq_mbr}
+			AND FLG_DELETE	= 'N'
+	</select>
+	
+</mapper>

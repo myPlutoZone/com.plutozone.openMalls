@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.plutozone.front.basket.dto.BasketDto"			alias="basketDto" />
+		<typeAlias type="com.plutozone.front.buy.dto.BuyDto"				alias="buyDto" />
+		<typeAlias type="com.plutozone.front.buy.dto.BuyMasterDto"			alias="buyMasterDto" />
+		<typeAlias type="com.plutozone.front.buy.dto.BuyDetailDto"			alias="buyDetailDto" />
+		<typeAlias type="com.plutozone.front.center.dto.BoardDto"			alias="boardDto" />
+		<typeAlias type="com.plutozone.front.common.dto.PagingDto"			alias="pagingDto" />
+		<typeAlias type="com.plutozone.front.login.dto.LoginDto"			alias="loginDto" />
+		<typeAlias type="com.plutozone.front.member.dto.MemberDto"			alias="memberDto" />
+		<typeAlias type="com.plutozone.front.member.dto.StatisticMemberDto"	alias="statisticMemberDto" />
+		<typeAlias type="com.plutozone.front.member.dto.TermAgreeDto"		alias="termAgreeDto" />
+		<typeAlias type="com.plutozone.front.pay.dto.PayDto"				alias="payDto" />
+		<typeAlias type="com.plutozone.front.sale.dto.SaleDto"				alias="saleDto" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/plutozone/front/mybatis/basket/Basket.xml" />
+		<mapper resource="com/plutozone/front/mybatis/buy/Buy.xml" />
+		<mapper resource="com/plutozone/front/mybatis/buy/BuyMaster.xml" />
+		<mapper resource="com/plutozone/front/mybatis/buy/BuyDetail.xml" />
+		<mapper resource="com/plutozone/front/mybatis/center/Board.xml" />
+		<mapper resource="com/plutozone/front/mybatis/login/Login.xml" />
+		<mapper resource="com/plutozone/front/mybatis/member/Member.xml" />
+		<mapper resource="com/plutozone/front/mybatis/member/StatisticMember.xml" />
+		<mapper resource="com/plutozone/front/mybatis/member/TermAgree.xml" />
+		<mapper resource="com/plutozone/front/mybatis/pay/Pay.xml" />
+		<mapper resource="com/plutozone/front/mybatis/sale/Sale.xml" />
+	</mappers>
+</configuration>

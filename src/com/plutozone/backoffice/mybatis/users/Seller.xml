@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.backoffice.mybatis.users.Seller">
+	
+	<update id="update" parameterType ="sellerDto">
+		UPDATE
+			TB_SLL
+		SET
+			CD_STATE	= #{cd_state}
+			, DT_UPT	= SYSDATE
+			, UPDATER	= #{updater}
+		WHERE
+			SEQ_SLL = #{seq_sll}
+	</update>
+	
+	<select id="select" parameterType="sellerDto" resultType="sellerDto">
+		SELECT
+			SEQ_SLL
+			, ID
+			, PASSWD
+			, CD_STATE
+			, SLL_NM
+			, EMAIL
+			, PHONE
+			, CORP_NM
+			, CORP_NUM
+			, CORP_BIRTHDAY
+			, CORP_CEO
+			, POST
+			, ADDR1
+			, ADDR2
+			, INTRO
+			, TO_CHAR(DT_REG, 'YYYY-MM-DD HH24:MI:SS') dt_reg
+		FROM
+			TB_SLL
+		WHERE
+			SEQ_SLL = #{seq_sll}
+	</select>
+	
+	<select id="count" parameterType="pagingDto" resultType="java.lang.Integer">
+		SELECT
+			COUNT(ROWNUM)
+		FROM
+			TB_SLL
+		<include refid="where" />
+	</select>
+	
+	<select id="list" parameterType="pagingDto" resultType="sellerDto">
+		SELECT
+			*
+		FROM
+			(
+			SELECT
+				/*+ first_rows(10) */ ROW_NUMBER() OVER (ORDER BY DT_REG DESC, SLL_NM) rnum
+				, SEQ_SLL
+				, ID
+				, DECODE(CD_STATE, 0, '대기', 1, '사용중', 2, '반려', 8, '자퇴', 9, '강퇴', '기타') nm_state
+				, SUBSTR(SLL_NM, 1, 1) || RPAD('*', LENGTH(SLL_NM) - 2, '*') || SUBSTR(SLL_NM, -1) sll_nm
+				, CORP_NM
+				, SUBSTR(CORP_CEO, 1, 1) || RPAD('*', LENGTH(CORP_CEO) - 2, '*') || SUBSTR(CORP_CEO, -1) corp_ceo
+				, TO_CHAR(DT_REG, 'YYYY-MM-DD') dt_reg
+			FROM
+				TB_SLL
+			<include refid="where" />
+			)
+		<![CDATA[
+		WHERE
+			rnum >= (${currentPage} - 1) * ${linePerPage} + 1 AND rnum <= ${currentPage} * ${linePerPage}
+		]]> 
+		ORDER BY
+			rnum
+	</select>
+	
+	<sql id="where">
+		<where>
+			<if test="searchWord != null and searchWord != ''">
+				<if test="searchKey == 'sll_nm'">
+					AND SLL_NM = #{searchWord}
+				</if>
+				<if test="searchKey == 'corp_nm'">
+					AND CORP_NM = #{searchWord}
+				</if>
+				<if test="searchKey == 'corp_num'">
+					AND CORP_NUM = #{searchWord}
+				</if>
+			</if>
+			<if test="cd_state != null">
+				AND CD_STATE = #{cd_state}
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

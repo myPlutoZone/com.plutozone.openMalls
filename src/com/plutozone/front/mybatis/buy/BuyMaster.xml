@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.front.mybatis.buy.BuyMaster">
+	
+	<update id="update" parameterType="buyMasterDto">
+		UPDATE
+			TB_BUY_MST
+		SET
+			CD_STATE_PAY	= #{cd_state_pay}
+			, DT_UPT		= SYSDATE
+			, UPDATER		= #{updater}
+		WHERE
+			SEQ_BUY_MST 	= #{seq_buy_mst}
+	</update>
+	
+	<insert id="insert" parameterType="buyMasterDto">
+		INSERT INTO TB_BUY_MST
+			(SEQ_BUY_MST, SEQ_MBR, SEQ_SLL, BUY_INFO, BUY_COUNT, BUY_PRICE, FLG_DELETE, CD_STATE_PAY, CD_STATE_DELIVERY, DT_REG, REGISTER)
+		VALUES
+			(#{seq_buy_mst}, #{seq_mbr}, #{seq_sll}, #{buy_info}, #{buy_count}, #{buy_price}, 'N', NULL, NULL, SYSDATE, #{seq_mbr})
+	</insert>
+	
+	<select id="list" parameterType="pagingDto" resultType="buyMasterDto">
+		SELECT
+			*
+		FROM
+			(
+			SELECT
+				/*+ first_rows(10) */ ROW_NUMBER() OVER (ORDER BY DT_REG DESC) rnum
+				, SEQ_BUY_MST
+				, BUY_INFO
+				, BUY_COUNT
+				, BUY_PRICE
+				, DECODE(CD_STATE_PAY, 'N', '결제 전', 'Y', '결제 완료', 'C', '결제 취소', '기타')	STATE_PAY_NM
+				, DECODE(CD_STATE_DELIVERY, 'P', '준비중', 'D', '배송중', 'Y', '배송 완료', '기타')	STATE_DELIVERY_NM
+				, CD_STATE_DELIVERY
+				, TO_CHAR(DT_REG, 'YYYY-MM-DD') DT_REG
+				, (SELECT CORP_NM FROM TB_SLL tb_sll WHERE tb_sll.SEQ_SLL = tb_buy_mst.SEQ_SLL) CORP_NM
+			FROM
+				TB_BUY_MST
+			WHERE
+				<include refid="where" />
+			)
+		<![CDATA[
+		WHERE rnum >= (${currentPage} - 1) * ${linePerPage} + 1 AND rnum <= ${currentPage} * ${linePerPage}
+		]]> 
+		ORDER BY rnum
+	</select>
+	
+	<select id="count" parameterType="pagingDto" resultType="java.lang.Integer">
+		SELECT
+			COUNT(ROWNUM)
+		FROM
+			TB_BUY_MST
+		WHERE
+			<include refid="where" />
+	</select>
+	
+	<sql id="where">
+		<![CDATA[
+				SEQ_MBR			= #{register}
+				AND REGISTER	= #{register}
+		]]>
+		<if test="searchWord != null and searchWord != ''">
+			<if test="searchKey == 'buy_info'">
+				AND BUY_INFO LIKE '%' || #{buy_info} || '%'
+			</if>
+			<if test="searchKey == 'x_prd_nm'">
+				AND X_PRD_NM LIKE '%' || #{searchWord} || '%'
+			</if>
+		</if>
+	</sql>
+	
+	<select id="sequence" resultType="java.lang.Integer">
+		SELECT SQ_SEQ_BUY_MST.NEXTVAL FROM DUAL
+	</select>
+	
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.seller.mybatis.sellers.Seller">
+	
+	<insert id="insert" parameterType="sellerDto">
+		INSERT INTO TB_SLL
+			(SEQ_SLL, ID, PASSWD, CD_STATE, SLL_NM, EMAIL, PHONE, CORP_NM, CORP_NUM, CORP_BIRTHDAY, CORP_CEO, POST, ADDR1, ADDR2, INTRO, DT_REG, REGISTER)
+		VALUES
+			(#{seq_sll}, #{id}, #{passwd}, 0, #{sll_nm}, #{email}, #{phone}, #{corp_nm}, #{corp_num}, #{corp_birthday}, #{corp_ceo}, #{post}, #{addr1}, #{addr2}, #{intro}, SYSDATE, #{register})
+	</insert>
+	
+	<select id="sequence" resultType="java.lang.Integer">
+		SELECT SQ_SEQ_SLL.NEXTVAL FROM DUAL
+	</select>
+	
+</mapper>

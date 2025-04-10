@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.backoffice.mybatis.users.Manager">
+	
+	<insert id="insert" parameterType="managerDto">
+		INSERT INTO TB_MNG
+			(SEQ_MNG, ID, PASSWD, CD_STATE, MNG_NM, EMAIL, PHONE, POST, ADDR1, ADDR2, DT_REG, REGISTER)
+		VALUES
+			(#{seq_mng}, #{id}, #{passwd}, 0, #{mng_nm}, #{email}, #{phone}, #{post}, #{addr1}, #{addr2}, SYSDATE, #{register})
+	</insert>
+	
+	<select id="sequence" resultType="java.lang.Integer">
+		SELECT SQ_SEQ_MNG.NEXTVAL FROM DUAL
+	</select>
+	
+</mapper>

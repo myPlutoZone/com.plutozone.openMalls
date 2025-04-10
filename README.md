@@ -13,6 +13,7 @@ plutozone.com의 지적재산권 침해에 해당된다.
 
 # Overview
 - 본 프로젝트는 Spring MVC 기반의 통합 쇼핑몰 솔루션(Integration Shopping Mall Solution)을 제공한다.
+- 본 프로젝트에 대한 문의는 myPlutoZone@gmail.com로 연락 바랍니다.
 
 
 # Reference

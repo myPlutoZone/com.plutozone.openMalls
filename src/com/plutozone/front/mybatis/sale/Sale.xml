@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plutozone.front.mybatis.sale.Sale">
+
+	<select id="select" parameterType="saleDto" resultType="saleDto">
+		SELECT
+			SEQ_SLE
+			, SEQ_PRD
+			, SLE_NM
+			, PRICE_SALE
+			, IMG
+			, DESCES
+			, (SELECT CORP_NM FROM TB_SLL tb_sll WHERE tb_sll.SEQ_SLL = tb_sle.REGISTER) CORP_NM
+			, REGISTER seq_sll
+		FROM
+			TB_SLE tb_sle
+		WHERE
+			SEQ_SLE				= #{seq_sle}
+			AND CD_STATE_SALE	= 1
+			<![CDATA[
+			AND SYSDATE >= DT_SALE_START AND SYSDATE <= DT_SALE_END
+			]]>
+	</select>
+	
+	<select id="search" parameterType="saleDto" resultType="saleDto">
+		SELECT
+			ROWNUM rnum
+			, searched.*
+		FROM
+			(SELECT
+				SEQ_SLE
+				, SEQ_PRD
+				, SLE_NM
+				, PRICE_SALE
+				, IMG
+				, (SELECT CORP_NM FROM TB_SLL tb_sll WHERE tb_sll.SEQ_SLL = tb_sle.REGISTER) CORP_NM
+			FROM
+				TB_SLE tb_sle
+			WHERE
+				CD_STATE_SALE = 1
+				<![CDATA[
+				AND SYSDATE >= DT_SALE_START AND SYSDATE <= DT_SALE_END
+				]]>
+				<if test="searchWord != null and searchWord != ''">
+					AND UPPER(SLE_NM) LIKE UPPER('%' || #{searchWord} || '%')
+				</if>
+			ORDER BY
+				SEQ_SLE DESC
+			) searched
+	</select>
+		
+</mapper>
