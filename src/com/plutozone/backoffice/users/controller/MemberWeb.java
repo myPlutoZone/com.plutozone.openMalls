@@ -69,7 +69,7 @@ public class MemberWeb extends Common {
 		try {
 			
 			// 대칭키 암호화(AES-256)
-			String staticKey	= staticProperties.getProperty("backoffice.enc.user.aes256.key", "[UNDEFINED]");
+			String staticKey	= staticProperties.getProperty("front.enc.user.aes256.key", "[UNDEFINED]");
 			SKwithAES aes		= new SKwithAES(staticKey);
 			
 			String searchWord = pagingDto.getSearchWord();
@@ -109,7 +109,7 @@ public class MemberWeb extends Common {
 			MemberDto _memberDto = memberSrvc.select(memberDto);
 			
 			// 대칭키 암호화(AES-256)
-			String staticKey	= staticProperties.getProperty("backoffice.enc.user.aes256.key", "[UNDEFINED]");
+			String staticKey	= staticProperties.getProperty("front.enc.user.aes256.key", "[UNDEFINED]");
 			SKwithAES aes		= new SKwithAES(staticKey);
 			
 			_memberDto.setEmail(aes.decode(_memberDto.getEmail()));
