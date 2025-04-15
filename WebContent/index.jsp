@@ -84,7 +84,7 @@
 <form id="frmMain" method="POST">
 <div class="container">
 	<header>
-		<a href="/"><img src="/image/logo.jpg" alt="로고" width="200px" /></a>
+		<a href="/"><img src="/image/logo.jpg" alt="로고" width="150px" /></a>
 	</header>
 	<nav>
 	</nav>
@@ -108,7 +108,7 @@
 		<aside></aside>
 	</section>
 	<footer>
-		Copyright &copy; 2024 by <a href="./mapKaKao.html">PLUTOZONE.COM</a> All Rights Reserved
+		Copyright &copy; 2024 by <a href="./mapKakao.jsp">[PLUTOZONE.COM]</a> All Rights Reserved
 	</footer>
 </div>
 </form>

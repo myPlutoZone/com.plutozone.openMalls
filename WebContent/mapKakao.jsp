@@ -73,7 +73,7 @@
 		
 			if (image == "artCenter") {
 				var imageSize	= new kakao.maps.Size(146, 22);
-				var markerImage	= new kakao.maps.MarkerImage("/image/logo.png", imageSize);
+				var markerImage	= new kakao.maps.MarkerImage("/image/sportCenter.png", imageSize);
 			}
 			else {
 				var imageSize	= new kakao.maps.Size(15, 15);
