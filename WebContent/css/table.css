@@ -28,18 +28,20 @@ table.headTop_01 {
 	line-height: 1.5;
 	/* margin: 1rem auto; */
 	border: 1px solid #CCC;
-	background-color: white
+	background-color: white;
+}
+table.headTop_01 th {
+	background-color: #F0F0F0;
+	border-top: 2px solid #369;
+	border-bottom: 1px solid #CCC;
+	color: #153D73;
 }
 table.headTop_01 th, table.headTop_01 td {
 	padding: 3px;
 	text-align: left;
 	border-right: 1px solid #CCC;
-	border-bottom: 1px solid #CCC;
-	text-align: center
-}
-table.headTop_01 th {
-	background-color: #000000;
-	color: #CCC
+	border-bottom: 1px solid #F0F0F0;
+	text-align: center;
 }
 
 /* 좌측 헤더 테이블 */
@@ -49,22 +51,23 @@ table.headLeft_01 {
 	border-collapse: collapse;
 	text-align: left;
 	line-height: 1.5;
-	border-top: 1px solid #ccc;
-	border-left: 3px solid #369;
+	border-top: 1px solid #CCC;
+	border-left: 2px solid #369;
 }
 table.headLeft_01 th {
 	padding: 3px;
 	font-weight: bold;
 	vertical-align: top;
-	color: #153d73;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc
+	color: #153D73;
+	background-color: #F0F0F0;
+	border-right: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
 }
 table.headLeft_01 td {
 	padding: 3px;
 	vertical-align: top;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc
+	border-right: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
 }
 
 /* [20240710] 추가 */
@@ -73,11 +76,10 @@ table.headLeft_01 td.content {
 	height: 300px;
 	padding-right:5px;
 	overflow-y: scroll;
-	overflow-wrap:anywhere;
-	
+	overflow-wrap:anywhere;;
 	/* firefox - scrollbar style */
-	scrollbar-width: 3px;
-	scrollbar-color: #ccc;
+	scrollbar-width: 2px;
+	scrollbar-color: #CCC;
 }
 /* chrome & edge & safari & opera - scrollbar style */
 table.headLeft_01 td.content::-webkit-scrollbar {
@@ -85,7 +87,7 @@ table.headLeft_01 td.content::-webkit-scrollbar {
 	transition: width 2s;
 }
 table.headLeft_01 td.content::-webkit-scrollbar-thumb {
-	background-color: #ccc;
+	background-color: #CCC;
 	border-radius: 5px;
 }
 /* [20240710] 추가 */
