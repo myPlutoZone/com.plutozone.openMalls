@@ -1,3 +1,6 @@
 /.project
 /.classpath
 /.settings/
+
+/WebContent/WEB-INF/classes/com/
+/WebContent/WEB-INF/classes/Hello.class
